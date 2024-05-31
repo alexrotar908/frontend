@@ -1,0 +1,112 @@
+<form class="registerForm" [formGroup]="registerForm">
+    <h1>Register</h1>
+<mat-form-field class="field">
+    <mat-label class="label">Email</mat-label>
+    <input
+    type="email"
+    matInput
+    formControlName="email"
+    placeholder="Ex. example@example.com"
+    />
+
+    @if(registerForm.controls.email.hasError('email')&& 
+    !registerForm.controls.email.hasError('required')){
+        <mat-error>Please enter a valid email address</mat-error>
+    }
+    @if(registerForm.controls.email.hasError('required')){
+        <mat-error>Email is <strong> required</strong> </mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field class="field">
+    <mat-label class="label">Username</mat-label>
+    <input
+    matInput
+    formControlName="username"
+    />
+
+    @if(!registerForm.controls.username.hasError('required')){
+        <mat-error>Please enter a username</mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field class="field">
+    <mat-label class="label">First Name</mat-label>
+    <input
+    matInput
+    formControlName="firstName"
+    />
+
+    @if(!registerForm.controls.firstName.hasError('required')){
+        <mat-error>Please enter a first name</mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field class="field">
+    <mat-label class="label">Last Name</mat-label>
+    <input
+    matInput
+    formControlName="name"
+    />
+
+    @if(!registerForm.controls.name.hasError('required')){
+        <mat-error>Please enter a last name</mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field class="field">
+    <mat-label class="label">Address</mat-label>
+    <input
+    matInput
+    formControlName="address"
+    />
+
+    @if(!registerForm.controls.address.hasError('required')){
+        <mat-error>Please enter an address</mat-error>
+    }
+</mat-form-field>
+
+
+<mat-form-field class="field">
+    <mat-label class="label">Password</mat-label>
+    <input
+    type="password"
+    matInput
+    formControlName="password"
+    />
+
+    @if( 
+    !registerForm.controls.password.hasError('required')){
+        <mat-error>Please enter a valid password </mat-error>
+    }
+    @if( !registerForm.controls.password.hasError('required')){
+            <mat-error>Min length is 6 characters</mat-error>
+        }
+</mat-form-field>
+
+<mat-form-field class="field">
+    <mat-label class="label">Confirm Password</mat-label>
+    <input
+    type="password"
+    matInput
+    formControlName="confirmPassword"
+    />
+
+    @if( 
+    !registerForm.controls.confirmPassword.hasError('required')){
+        <mat-error>Please enter a valid password </mat-error>
+    }
+    @if( !registerForm.controls.confirmPassword.hasError('minlength')){
+            <mat-error>Min length is 6 characters</mat-error>
+        }
+  @if( !registerForm.controls.confirmPassword.hasError('passwordMismatch')){
+            <mat-error>Passwords do not match</mat-error>
+        }
+</mat-form-field>
+
+<button (click)="register()" mat-flat-button color="primary">Register</button>
+
+<a [routerLink]="['/login']">
+<button mat-flat-button color="secondary">Already have an account ? Login</button>
+</a>
+</form>

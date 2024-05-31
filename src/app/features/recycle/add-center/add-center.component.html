@@ -1,0 +1,79 @@
+<form class="addCenterForm" [formGroup]="addCenterForm">
+    <h1>Add Center</h1>
+<mat-form-field class="field">
+    <mat-label class="label">Center Name</mat-label>
+    <input
+    matInput
+    formControlName="name"
+    placeholder="Ex. name center"
+    />
+
+    @if( !addCenterForm.controls.name.hasError('required')){
+        <mat-error>Please enter a valid name</mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field class=" field">
+    <mat-label class=" label">Country</mat-label>
+    <mat-select formControlName="nameCountry" >
+        <mat-option *ngFor="let country of countries" [value]="country.id">{{country.title}}</mat-option>
+    </mat-select>
+    @if( !addCenterForm.controls.nameCountry.hasError('required')){
+        <mat-error>Please select a country</mat-error>
+    }
+</mat-form-field>
+
+
+<mat-form-field class=" field">
+    <mat-label class=" label">City</mat-label>
+    <mat-select formControlName="nameCity">
+        <mat-option *ngFor="let city of filteredCities" [value]="city">{{city}}</mat-option>
+    </mat-select>
+    @if( !addCenterForm.controls.nameCity.hasError('required')){
+        <mat-error>Please select a city</mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field class=" field">
+    <mat-label class=" label">Material</mat-label>
+    <mat-select formControlName="material">
+        <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
+    </mat-select>
+    @if( !addCenterForm.controls.material.hasError('required')){
+        <mat-error>Please select a material</mat-error>
+    }
+</mat-form-field>
+
+
+<mat-form-field class="field">
+    <mat-label class="label">Operating Hours</mat-label>
+    <input
+    matInput
+    formControlName="hours"
+    placeholder="18:30"
+    />
+
+    @if( !addCenterForm.controls.hours.hasError('required')){
+        <mat-error>Please enter a valid operating hour</mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field class="field">
+    <mat-label class="label">Address</mat-label>
+    <input
+    matInput
+    formControlName="address"
+    placeholder="Ex: str. filips"
+    />
+
+    @if( !addCenterForm.controls.address.hasError('required')){
+        <mat-error>Please enter a valid address</mat-error>
+    }
+</mat-form-field>
+
+<button (click)="createBoardCenter()" mat-flat-button color="primary">Save</button>
+
+<a [routerLink]="['/recycle-table']">
+<button mat-flat-button color="secondary">Already added a center ? Recycle centers</button>
+</a>
+</form>

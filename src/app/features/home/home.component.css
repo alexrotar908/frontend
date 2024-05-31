@@ -1,0 +1,43 @@
+.header{
+	display:flex;
+	align-items:center;
+	background-color: black;
+	color:white;
+}
+
+.username{
+	
+	border-right: 3px solid #ccc;
+	border-left: 3px solid #ccc;
+	padding: 52px 40px;
+	flex-grow:1;
+	text-align:center;
+	font-size:50px;
+}
+
+.logout{
+	margin-right:auto;
+	font-size:50px;
+}
+
+.container-links{
+    display: flex;
+    align-items: center;
+    width: 600px;
+    height: 400px;
+}
+
+.table-recycling{
+    margin-left: 400px;
+}
+
+th,td{
+    padding: 10px;
+}
+
+button{
+    width: 100%;
+    background-color: #29EB0F;
+    border-radius: 10px;
+	border:none;
+}

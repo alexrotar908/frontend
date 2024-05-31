@@ -1,0 +1,85 @@
+<div class="main-container">
+    <h1>Recycling Rewards Account</h1>
+
+    <select (change)="onMaterialSelected($event)">
+        <option [value]="'plastic-bottle'">Plastic Bottle</option>
+        <option [value]="'aluminum-can'">Aluminum Can</option>
+        <option [value]="'metal'">Metal</option>
+        <option [value]="'glass-container'">Glass Container</option>
+        <option [value]="'paper-cardboard'">Paper and Cardboard</option>
+        <option [value]="'e-waste'">Electronic Waste</option>"
+    </select>
+
+    <p *NgIf="typeMaterial"> Selected material: {{typeMaterial}}</p>
+
+    <input type="number" (input)="onAmountChanged($event)" placeholder="amount"/> 
+
+    <p>Total points: {{points}}</p>  <p>Total accumulated points: {{ totalPoints }}</p>
+
+    <button (click)="submitRecycling()">Contribute</button>
+    <button (click)="downloadVoucher()">Download Voucher Treshold</button>
+    <table class="recycling_types">
+        <thead>
+            <tr>
+                <th>Plastic Bottles</th>
+                <th>Aluminum cans</th>
+                <th>Metals</th>
+                <th>Glass container</th>
+                <th>Paper and cardboard</th>
+                <th>Electronic waste</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img src="assets/plastic-bottles.png"></td>
+                <td><img src="assets/aluminum-cans.jpg"></td>
+                <td><img src="assets/metals.jpg"></td>
+                <td><img src="assets/glass-container.jpg"></td>
+                <td><img src="assets/paper-cardboard.jpg"></td>
+                <td><img src="assets/e-waste.jpg"></td>
+            </tr>
+            <tr>
+                <td>10%</td>
+                <td>15%</td>
+                <td>5%</td>
+                <td>6%</td>
+                <td>7%</td>
+                <td>20%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="instructions">
+        <thead>
+            <tr>
+                <th colspan="2">Instructions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Plastic Bottles</td>
+                <td>10 pts</td>
+            </tr>
+            <tr>
+                <td>Aluminum cans</td>
+                <td>15 pts</td>
+            </tr>
+            <tr>
+                <td>Metals</td>
+                <td>20 pts</td>
+            </tr>
+            <tr>
+                <td>Glass containers</td>
+                <td>5 pts</td>
+            </tr>
+            <tr>
+                <td>Paper and cardboard</td>
+                <td>2 pts</td>
+            </tr>
+            <tr>
+                <td>Electronic waste</td>
+                <td>30 pts</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
