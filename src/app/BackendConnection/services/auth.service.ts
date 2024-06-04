@@ -40,7 +40,7 @@ export class AuthService {
     if (!decodedToken.exp) return false;
     return decodedToken.exp > now;
  }
-/*
+
  getFirstNameFromToken(): string | null {
   const token = this._token();
   if (token) {
@@ -48,5 +48,5 @@ export class AuthService {
     return decodedToken.firstName || null;  // Suponiendo que el nombre de usuario está en el campo 'username'
   }
   return null;
-}*/
+}
 }

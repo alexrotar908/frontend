@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { RecycleService } from '../../../BackendConnection/services/recycle.service';
-import { ICreateBoardCenter } from '../../../BackendConnection/models/recycle.module';
+import { IRecyleCenter } from '../../../BackendConnection/models/recycle.module';
 
 type CountryCode = 'ro' | 'es' | 'it'; 
 type CityList = {
@@ -27,7 +27,7 @@ export class AddCenterComponent implements OnInit{
     name:this.fb.control('',[Validators.required]),
    nameCity:this.fb.control('',Validators.required),
     nameCountry:this.fb.control('',Validators.required),
-    material:this.fb.control('',Validators.required),
+    material:this.fb.control<string[]>([],Validators.required),
     hours:this.fb.control('',Validators.required),
     address:this.fb.control('',Validators.required)
   });
@@ -45,8 +45,10 @@ export class AddCenterComponent implements OnInit{
   };
   filteredCities: string[] = [];
   
-  materialsList: string []=[];
+
   materials=['Plastic bottles', 'Aluminun cans', 'Metals', 'Glass containers', 'Paper and cardboard', 'Electronic waste (e-waste)'];
+
+ 
 
   ngOnInit() {
     this.addCenterForm.get('nameCountry')?.valueChanges.subscribe(countryId => {
@@ -64,7 +66,7 @@ export class AddCenterComponent implements OnInit{
     
     }
     console.log(this.addCenterForm.value);
-    this.recycleService.createBoardCenter(this.addCenterForm.value as ICreateBoardCenter)
+    this.recycleService.createBoardCenter(this.addCenterForm.value as IRecyleCenter)
     .subscribe({
       next:(response)=> {
 

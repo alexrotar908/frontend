@@ -8,3 +8,26 @@
     
   </form>
   <button class="add_center" (click)="add_center()">Add center details</button>
+
+  <table class="center">
+    <thead>
+      <tr>
+        <th>Center Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Material</th>
+        <th>Operating hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let center of centers" >
+        <td>{{center.name}}</td>
+        <td>{{center.address}}</td>
+        <td>{{center.nameCity}}</td>
+        <td>{{center.nameCountry}}</td>
+        <td>{{center.material}}</td>
+        <td>{{center.hours}}</td>
+      </tr>
+    </tbody>
+  </table>

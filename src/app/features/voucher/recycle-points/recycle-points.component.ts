@@ -3,13 +3,15 @@ import { IVoucher } from '../../../BackendConnection/models/voucher.module';
 import { IUser } from '../../../BackendConnection/models/account.module';
 import { VoucherService } from '../../../BackendConnection/services/voucher.service';
 import jsPDF from 'jspdf';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../BackendConnection/services/auth.service';
 
 type MaterialType = 'plastic-bottle' | 'aluminum-can' | 'metal' | 'glass-container' | 'paper-cardboard' | 'e-waste';
 
 @Component({
   selector: 'app-recycle-points',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './recycle-points.component.html',
   styleUrl: './recycle-points.component.css'
 })
@@ -34,7 +36,7 @@ export class RecyclePointsComponent {
     'e-waste': 30,
   }
 
-  constructor(private voucherService: VoucherService) {}
+  constructor(private voucherService: VoucherService, private authService: AuthService) {}
   calculatePoints(): void{
     if(this.typeMaterial && this.amount){
       this.points=this.materialPointsValues[this.typeMaterial]*this.amount;
@@ -89,20 +91,28 @@ export class RecyclePointsComponent {
   }
 
   loadVoucherData() {
-    this.voucherService.getVoucher().subscribe(
-      data => {
-        if (data && data.length > 0) {
-          this.voucher = data[0];  
-          if (this.voucher && this.voucher.users && this.voucher.users.length > 0) {
-            this.user = this.voucher.users[0]; 
+    const token = this.authService.token(); // Obtener el valor actual del token
+  
+    // Verificar si el token existe antes de pasarlo como argumento
+    if (token) {
+      this.voucherService.getVoucher(token).subscribe(
+        data => {
+          if (data && data.length > 0) {
+            this.voucher = data[0];  
+            if (this.voucher && this.voucher.users && this.voucher.users.length > 0) {
+              this.user = this.voucher.users[0]; 
+            }
           }
+        },
+        error => {
+          console.error('Error al cargar los datos del cupón', error);
         }
-      },
-      error => {
-        console.error('Error al cargar los datos del cupón', error);
-      }
-    );
+      );
+    } else {
+      console.error('No se encontró ningún token de autenticación.');
+    }
   }
+  
 
   downloadVoucher():void{
     if (this.voucher && this.user){

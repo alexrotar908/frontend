@@ -36,7 +36,7 @@
 
 <mat-form-field class=" field">
     <mat-label class=" label">Material</mat-label>
-    <mat-select formControlName="material">
+    <mat-select formControlName="material" multiple>
         <mat-option *ngFor="let material of materials" [value]="material">{{material}}</mat-option>
     </mat-select>
     @if( !addCenterForm.controls.material.hasError('required')){

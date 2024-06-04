@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { ICreateBoardCenter, IRecycle } from '../models/recycle.module';
+import { IRecycle, IRecycleCenterRow, IRecyleCenter } from '../models/recycle.module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -9,24 +9,35 @@ import { AuthService } from './auth.service';
 })
 export class RecycleService {
 
-  private apiUrl = 'http://localhost:3000'; // Cambia esto por la URL de tu API
-  private http = inject(HttpClient);
-  private authService = inject(AuthService);
+  private apiUrl = 'http://localhost:3000'; 
+
+  constructor(private http:HttpClient, private authService: AuthService){}
 
   private getHeaders(): HttpHeaders {
     const token = this.authService.token();
-    console.log('Using token in headers:', token);  // Añade esto para depuración
+    console.log('Using token in headers:', token); 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   }
 
-  createBoardCenter(createBoardCenter: ICreateBoardCenter): Observable<IRecycle> {
+  createBoardCenter(createBoardCenter:IRecyleCenter): Observable<IRecycle> {
     console.log("click2");
-    return this.http.post<IRecycle>(`${this.apiUrl}/recyclecenter`, createBoardCenter, { headers: this.getHeaders() });
+    return this.http.post<IRecycle>(`${this.apiUrl}/recycle-center`, createBoardCenter, { headers: this.getHeaders() })
+    .pipe(
+      catchError(error => {
+        if (error.status === 401) {
+          // Manejar error de autorización aquí
+          console.error('Unauthorized error:', error);
+        } else {
+          console.error('Error creating center:', error);
+        }
+        throw error; // Asegúrate de relanzar el error para que sea manejado en el componente
+      })
+    );
   }
 
-  getRecycle(): Observable<IRecycle[]> {
-    return this.http.get<IRecycle[]>(`${this.apiUrl}/recyclecenter`, { headers: this.getHeaders() });
+  getRecycle(): Observable<IRecycleCenterRow[]> {
+    return this.http.get<IRecycleCenterRow[]>(`${this.apiUrl}/recycle-center`, { headers: this.getHeaders() });
   }
 }
